@@ -1,0 +1,23 @@
+
+@import '../node_modules/react-grid-layout/css/styles.css';
+@import '../node_modules/react-resizable/css/styles.css';
+
+
+// offCanvas
+.top-right-off-canvas {
+    margin-left: 50%;
+    width: 50%;
+    top: 0;
+    border: 0;
+    .offcanvas-header{
+        width: 80%;
+    }
+    .offcanvas-body{
+        width: 80%;
+        border:1px solid black
+    }
+}
+
+.react-grid-item{
+    background-color: beige;
+}
