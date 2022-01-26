@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Button, Col, Offcanvas, Row } from "react-bootstrap";
 import GridLayout from "react-grid-layout";
+import AccountStatusCard from "../component/LeftSide/AccountStatusCard";
+import ClassicalOptimizers from "../component/LeftSide/ClassicalOptimizers";
+import MyProjects from "../component/LeftSide/MyProjects";
+import QPUConfig from "../component/LeftSide/QPUConfig";
+import QuantumRegisters from "../component/LeftSide/QuantumRegisters";
+import leftSideImg from "../images/leftSide.png";
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
 
@@ -16,17 +22,24 @@ const Dashboard = (props) => {
     // alert(`Dropped element props:\n${JSON.stringify(layoutItem, ['x', 'y', 'w', 'h'], 2)}`);
     console.log(layoutItem);
     console.log(layout);
-
-    setGridLayout(e=>([...e,{
-        i: "itemId" + ((Math.round(Math.random()* 1000) ).toString()),
-        x: layoutItem.x,
-        y: layoutItem.y,
-        w: layoutItem.w,
-        h: layoutItem.h,
-      }]));
+    let tempArray = [];
+    for (let i = 0; i < layout.length; i++) {
+      const element = layout[i];
+      tempArray.push({
+        i: element.i.startsWith("itemId")
+          ? element.i
+          : "itemId" + (layout.length + i).toString(),
+        x: element.x,
+        y: element.y,
+        w: element.w,
+        h: element.h,
+      });
+    }
+    setGridLayout(tempArray);
   };
+
   return (
-    <div className="px-4 px-md-5 d-flex flex-column flex-grow-1 my-5">
+    <div className=" d-flex flex-column flex-grow-1 mb-5">
       <Button variant="primary" onClick={handleShow}>
         Launch
       </Button>
@@ -40,49 +53,76 @@ const Dashboard = (props) => {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Offcanvas</Offcanvas.Title>
         </Offcanvas.Header>
-        <div
-          className="droppable-element"
-          draggable={true}
-          unselectable="on"
-          style={{ width: 150 + "px", backgroundColor: "grey" }}
-          // this is a hack for firefox
-          // Firefox requires some kind of initialization
-          // which we can do by adding this attribute
-          // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-          onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
-        >
-          Droppable Element (Drag me!)
-        </div>
+        <Offcanvas.Body>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            style={{ width: 100 + "px", backgroundColor: "pink" }}
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+          >
+            Droppable Element (Drag me!)
+          </div>
+        </Offcanvas.Body>
       </Offcanvas>
       <Row>
-        <GridLayout
-          className="layout"
-          layout={gridLayout}
-          cols={12}
-          rowHeight={30}
-          width={1200}
-          isDroppable={true}
-          onDrop={(layout, layoutItem, _event) =>
-            onDrop(layout, layoutItem, _event)
-          }
-        >
-          {gridLayout.map((e) => {
-            return (
-              <div key={e.i} className={e.static ? "static" : ""}>
-                {e.static ? (
-                  <span
-                    className="text"
-                    title="This item is static and cannot be removed or resized."
-                  >
-                    Static - {e.i}
-                  </span>
-                ) : (
-                  <span className="text">{e.i}</span>
-                )}
-              </div>
-            );
-          })}
-        </GridLayout>
+        <Col xs={3} className="custom-purple-cards-container">
+          <Row>
+            <Col>
+              <AccountStatusCard/>
+            </Col>
+            <Col>
+              <QPUConfig/>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <MyProjects/>
+            </Col>
+            <Col>
+              <QuantumRegisters/>
+            </Col>
+          </Row>
+          <Row>
+            <ClassicalOptimizers/>
+          </Row>
+          <img src={leftSideImg} alt="noPic" width={280}></img>
+        </Col>
+        <Col xs={9}>
+          <GridLayout
+            className="layout"
+            layout={gridLayout}
+            cols={12}
+            rowHeight={30}
+            width={1200}
+            allowOverlap={true}
+            isDroppable={true}
+            onDrop={(layout, layoutItem, _event) =>
+              onDrop(layout, layoutItem, _event)
+            }
+          >
+            {gridLayout.map((e) => {
+              return (
+                <div key={e.i} className={e.static ? "static" : ""}>
+                  {e.static ? (
+                    <span
+                      className="text"
+                      title="This item is static and cannot be removed or resized."
+                    >
+                      Static - {e.i}
+                    </span>
+                  ) : (
+                    <span className="text">{e.i}</span>
+                  )}
+                </div>
+              );
+            })}
+          </GridLayout>
+        </Col>
       </Row>
     </div>
   );

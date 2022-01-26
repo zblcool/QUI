@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar, Container } from 'react-bootstrap'
 
-const Dashboard = (props) => {
+const Header = (props) => {
   return (
     <div>
     <Navbar bg="dark" variant="dark">
@@ -23,4 +23,4 @@ const Dashboard = (props) => {
   )
 }
 
-export default Dashboard
+export default Header

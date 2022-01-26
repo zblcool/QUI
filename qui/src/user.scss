@@ -11,13 +11,16 @@
     border: 0;
     .offcanvas-header{
         width: 80%;
+        
     }
     .offcanvas-body{
         width: 80%;
+        background-color: rgb(182, 181, 181);
         border:1px solid black
     }
 }
 
 .react-grid-item{
+    border: 0.5px dashed blue!important;
     background-color: beige;
 }

@@ -14,7 +14,7 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col xs={{ span: 10, offset: 1 }}>
+        <Col xs={{ span: 12, offset: 0 }}>
           <Dashboard />
         </Col>
       </Row>
