@@ -1,11 +1,11 @@
 import React from 'react'
 import { Navbar, Container, Card } from 'react-bootstrap'
-
+import QPUConfigImg from '../../images/QPU.png'
 const QPUConfig = (props) => {
   return (
     <div>
     <Card>
-    <Card.Header>Quote</Card.Header>
+    <Card.Header className='d-flex justify-content-between'><img src={QPUConfigImg} alt='qpu' width={25} ></img><span>QPU config</span><br/></Card.Header>
     <Card.Body>
       <blockquote className="blockquote mb-0">
         <p>

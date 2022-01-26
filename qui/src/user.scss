@@ -3,7 +3,7 @@
 @import '../node_modules/react-resizable/css/styles.css';
 
 
-// offCanvas
+// NOTE  offCanvas
 .top-right-off-canvas {
     margin-left: 50%;
     width: 50%;
@@ -23,4 +23,53 @@
 .react-grid-item{
     border: 0.5px dashed blue!important;
     background-color: beige;
+}
+
+// NOTE LEFT SIDE
+
+.custom-purple-cards-container{
+.col{
+    padding-left: 7px;
+    padding-right: 0px;
+}
+    .card{
+        background-color: #EBEDF2;
+        border-radius: 10px;
+        margin-top: 5px;
+
+        margin-bottom: 10px;
+        transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        &:hover {
+            transform: scale(1.04, 1.04);
+        }
+        &:after{
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+        }
+    }
+    .card-header{
+        font-weight: 900;
+        font-size: 1rem;
+        color: #EBEDF2;
+        font-family: Arial, Helvetica, sans-serif;
+        border-radius: 10px;
+        border: 4px solid white;
+        box-shadow: 1 5px 15px rgba(0, 0, 0, 1);
+        box-shadow:inset 0 5px 15px rgba(0, 0, 0, 0.1);
+
+        background-color: #8C94B7;
+  
+            // text-align:center;
+    
+        span{
+            
+            padding-left: 10px;
+            align-items: center;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        img{
+            box-shadow: 1 5px 15px rgba(0, 0, 0, 1);
+
+        }
+    }
 }

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Navbar, Container, Card } from 'react-bootstrap'
-
+import accountsImg from '../../images/Account.png'
 const AccountStatusCard = (props) => {
   return (
     <div>
     <Card>
-    <Card.Header>Quote</Card.Header>
+    <Card.Header className='d-flex justify-content-between'><img src={accountsImg} alt='account' width={25}></img><span>Account status</span></Card.Header>
     <Card.Body>
       <blockquote className="blockquote mb-0">
         <p>

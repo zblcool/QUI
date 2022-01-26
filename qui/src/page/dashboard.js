@@ -88,7 +88,9 @@ const Dashboard = (props) => {
             </Col>
           </Row>
           <Row>
+          <Col>
             <ClassicalOptimizers/>
+            </Col>
           </Row>
           <img src={leftSideImg} alt="noPic" width={280}></img>
         </Col>
