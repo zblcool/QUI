@@ -50,9 +50,7 @@ const Dashboard = (props) => {
         className="top-right-off-canvas"
         backdrop={false}
       >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
+
         <Offcanvas.Body>
           <div
             className="droppable-element"
@@ -65,9 +63,12 @@ const Dashboard = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            Droppable Element (Drag me!)
+            Droppable Element
           </div>
         </Offcanvas.Body>
+        <Offcanvas.Header closeButton>
+        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+      </Offcanvas.Header>
       </Offcanvas>
       <Row>
         <Col xs={3} className="custom-purple-cards-container">
@@ -92,7 +93,7 @@ const Dashboard = (props) => {
             <ClassicalOptimizers/>
             </Col>
           </Row>
-          <img src={leftSideImg} alt="noPic" width={280}></img>
+ 
         </Col>
         <Col xs={9}>
           <GridLayout

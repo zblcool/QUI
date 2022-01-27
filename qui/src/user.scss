@@ -3,19 +3,49 @@
 @import '../node_modules/react-resizable/css/styles.css';
 
 
+// NOTE Header
+
+.custom-nav-bar{
+    background-color: #737DB4!important;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: 2px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 // NOTE  offCanvas
 .top-right-off-canvas {
+  
     margin-left: 50%;
     width: 50%;
     top: 0;
     border: 0;
+    .droppable-element{
+        padding: 5px;
+        border-radius: 10px;
+        transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        &:hover {
+            transform: scale(1.04, 1.04);
+        }
+        &:after{
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+    }
     .offcanvas-header{
         width: 80%;
         
     }
     .offcanvas-body{
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
         width: 80%;
-        background-color: rgb(182, 181, 181);
+        background-image: linear-gradient(to right, #D0D4FF , #EBEDF2);
         border:1px solid black
     }
 }
