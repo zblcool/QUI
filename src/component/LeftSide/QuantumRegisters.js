@@ -10,7 +10,7 @@ const QuantumRegisters = (props) => {
     <div>
       <Card>
         <Card.Header className="d-flex justify-content-between">
-          <img src={QuantumImg} alt="QuantumImg" width={25}></img>
+          <img src={QuantumImg} alt="QuantumImg" width={30}></img>
           <span>Quantum registers</span>
           <br />
         </Card.Header>

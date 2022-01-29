@@ -7,6 +7,7 @@ import MyProjects from "../component/LeftSide/MyProjects";
 import QPUConfig from "../component/LeftSide/QPUConfig";
 import QuantumRegisters from "../component/LeftSide/QuantumRegisters";
 import leftSideImg from "../images/leftSide.png";
+import verticalImg from "../images/veriticaDivider.png"
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
 
@@ -40,7 +41,6 @@ const Dashboard = (props) => {
 
   return (
     <div className=" d-flex flex-column flex-grow-1 mb-5">
-
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -48,7 +48,6 @@ const Dashboard = (props) => {
         className="top-right-off-canvas"
         backdrop={false}
       >
-
         <Offcanvas.Body>
           <div
             className="droppable-element"
@@ -65,39 +64,44 @@ const Dashboard = (props) => {
           </div>
         </Offcanvas.Body>
         <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-      </Offcanvas.Header>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
       </Offcanvas>
       <Row>
         <Col xs={3} className="custom-purple-cards-container">
           <Row>
             <Col>
-              <AccountStatusCard/>
+              <AccountStatusCard />
             </Col>
             <Col>
-              <QPUConfig/>
+              <QPUConfig />
             </Col>
           </Row>
           <Row>
             <Col>
-              <MyProjects/>
+              <MyProjects />
             </Col>
             <Col>
-              <QuantumRegisters/>
+              <QuantumRegisters />
             </Col>
           </Row>
           <Row>
-          <Col>
-            <ClassicalOptimizers/>
+            <Col>
+              <ClassicalOptimizers />
             </Col>
           </Row>
- 
         </Col>
-        <Col xs={9}>
-        <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button>
-          <GridLayout
+        <Col xs={1}>
+        <img src={verticalImg} alt='vertical'></img>
+      </Col>
+        <Col xs={8} style={{marginLeft:'-80px'}}>
+          <Button variant="primary" onClick={handleShow}>
+            Launch
+          </Button>
+          
+
+    
+            <GridLayout
             className="layout"
             layout={gridLayout}
             cols={12}
@@ -126,6 +130,10 @@ const Dashboard = (props) => {
               );
             })}
           </GridLayout>
+          
+          
+         
+
         </Col>
       </Row>
     </div>
