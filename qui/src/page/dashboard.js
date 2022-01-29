@@ -40,9 +40,7 @@ const Dashboard = (props) => {
 
   return (
     <div className=" d-flex flex-column flex-grow-1 mb-5">
-      <Button variant="primary" onClick={handleShow}>
-        Launch
-      </Button>
+
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -96,6 +94,9 @@ const Dashboard = (props) => {
  
         </Col>
         <Col xs={9}>
+        <Button variant="primary" onClick={handleShow}>
+        Launch
+      </Button>
           <GridLayout
             className="layout"
             layout={gridLayout}

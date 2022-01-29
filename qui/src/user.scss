@@ -4,24 +4,47 @@
 
 
 // NOTE Header
-
+.custom-header{
+    padding-left: 0;
+    padding-bottom: 2px;
+ 
+}
 .custom-nav-bar{
+    
     background-color: #737DB4!important;
     font-weight: 900;
     font-size: 1rem;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    border: 2px solid white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 0px solid white;
+    box-shadow: 1 5px 15px rgba(0, 0, 0, 0.1);
+
+    .header-status{
+        img{
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 1 1px 2px rgba(0, 0, 0, 0.1);
+            &:hover {
+                transform: scale(1.3, 1.3);
+            }
+            &:after{
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+                transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+        }
+        color: #EBEDF2;
+        span{
+            font-weight: 600;
+            color:rgb(53, 53, 53)
+        }
+    }
 }
 
 // NOTE  offCanvas
 .top-right-off-canvas {
   
-    margin-left: 50%;
-    width: 50%;
+    margin-left: 60%;
+    width: 40%;
     top: 0;
     border: 0;
     .droppable-element{
@@ -80,6 +103,7 @@
     }
     .card-header{
         font-weight: 900;
+        padding: 10px 2px ;
         font-size: 1rem;
         color: #EBEDF2;
         font-family: Arial, Helvetica, sans-serif;

@@ -9,7 +9,7 @@ function App() {
     <div className="App">
     <Container fluid>
       <Row>
-        <Col xs={{ span: 6, offset: 0 }}>
+        <Col xs={{ span: 7, offset: 0 }} className="custom-header">
           <Header />
         </Col>
       </Row>
