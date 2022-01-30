@@ -8,6 +8,12 @@ import QPUConfig from "../component/LeftSide/QPUConfig";
 import QuantumRegisters from "../component/LeftSide/QuantumRegisters";
 import leftSideImg from "../images/leftSide.png";
 import verticalImg from "../images/veriticaDivider.png"
+import Hadmard from "../images/Hadmard.png"
+import ParameterControl from "../images/ParameterControl.png"
+import QNN from "../images/QNN.png"
+import QuantamData from "../images/QuantamData.png"
+
+
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
 
@@ -53,15 +59,57 @@ const Dashboard = (props) => {
             className="droppable-element"
             draggable={true}
             unselectable="on"
-            style={{ width: 100 + "px", backgroundColor: "pink" }}
+    
             // this is a hack for firefox
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            Droppable Element
+            
+            <img src={Hadmard} width={100} alt="Hadmard"></img>
           </div>
+          <div
+          className="droppable-element"
+          draggable={true}
+          unselectable="on"
+  
+          // this is a hack for firefox
+          // Firefox requires some kind of initialization
+          // which we can do by adding this attribute
+          // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+          onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+        >
+          
+          <img src={ParameterControl} width={100} alt="ParameterControl"></img>
+        </div>
+        <div
+        className="droppable-element"
+        draggable={true}
+        unselectable="on"
+
+        // this is a hack for firefox
+        // Firefox requires some kind of initialization
+        // which we can do by adding this attribute
+        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+        onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+      >
+        
+        <img src={QNN} width={100} alt="QNN"></img>
+      </div>
+      <div
+      className="droppable-element"
+      draggable={true}
+      unselectable="on"
+      // this is a hack for firefox
+      // Firefox requires some kind of initialization
+      // which we can do by adding this attribute
+      // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+      onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+    >
+      
+      <img src={QuantamData} width={100} alt="QuantamData"></img>
+    </div>
         </Offcanvas.Body>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Offcanvas</Offcanvas.Title>
@@ -108,7 +156,11 @@ const Dashboard = (props) => {
             rowHeight={30}
             width={1200}
             allowOverlap={true}
+            preventCollision={true}
             isDroppable={true}
+            onLayoutChange={(layout)=>{
+              console.log('layout',layout)
+            }}
             onDrop={(layout, layoutItem, _event) =>
               onDrop(layout, layoutItem, _event)
             }
