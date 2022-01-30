@@ -74,11 +74,7 @@
     }
 }
 
-.react-grid-item{
-    border: 0.5px dashed blue!important;
-    background-color: beige;
-    cursor: pointer;
-}
+
 
 // NOTE LEFT SIDE
 
@@ -104,8 +100,8 @@
     }
     .card-header{
         font-weight: 900;
-        padding: 10px 4px ;
-        font-size: 1rem;
+        padding: 10px 5px ;
+        font-size: 12px;
         color: #EBEDF2;
         font-family: Arial, Helvetica, sans-serif;
         border-radius: 10px;
@@ -119,7 +115,7 @@
     
         span{
             
-            padding-left: 10px;
+            padding-left: 5px;
             align-items: center;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
@@ -135,6 +131,7 @@
 // NOTE Quantum Registers
 
 .custom-quantum-registers{
+    padding: 5px;
     .droppable-element{
         img{
             transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -153,4 +150,30 @@
 
 .react-grid-layout{
     background-color: #dcdef886;
+}
+
+.react-grid-item{
+    border: 0.5px dashed blue!important;
+    background-color: beige;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+.react-grid-placeholder{
+    background-color: #D0D4FF!important;
+}
+
+
+// NOTE middle tool bar
+
+.custom-middle-tool-bar{
+    padding-top: 20px;
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 1 5px 15px rgba(0, 0, 0, 0.1);
+            &:hover {
+                transform: scale(1.02, 1.02);
+            }
+            &:after{
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
+            }
 }

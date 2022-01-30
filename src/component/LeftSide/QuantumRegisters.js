@@ -10,7 +10,7 @@ const QuantumRegisters = (props) => {
     <div>
       <Card>
         <Card.Header className="d-flex justify-content-between">
-          <img src={QuantumImg} alt="QuantumImg" width={30}></img>
+          <img src={QuantumImg} alt="QuantumImg" width={15}></img>
           <span>Quantum registers</span>
           <br />
         </Card.Header>
@@ -25,7 +25,7 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            <img src={modal2} width={150} alt="modal2"></img>
+            <img src={modal2} width={100} alt="modal2"></img>
           </div>
           <div
             className="droppable-element"
@@ -37,7 +37,7 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            <img src={modal3} width={150} alt="modal3"></img>
+            <img src={modal3} width={100} alt="modal3"></img>
           </div>
           <div
             className="droppable-element"
@@ -49,7 +49,7 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            <img src={modal4} width={150} alt="modal4"></img>
+            <img src={modal4} width={100} alt="modal4"></img>
           </div>
           <div
             className="droppable-element"
@@ -61,7 +61,7 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            <img src={modal1} width={150} alt="modal1"></img>
+            <img src={modal1} width={100} alt="modal1"></img>
           </div>
         </Card.Body>
       </Card>

@@ -68,7 +68,7 @@ const Dashboard = (props) => {
         </Offcanvas.Header>
       </Offcanvas>
       <Row>
-        <Col xs={3} className="custom-purple-cards-container">
+        <Col xs={2} className="custom-purple-cards-container">
           <Row>
             <Col>
               <AccountStatusCard />
@@ -91,10 +91,10 @@ const Dashboard = (props) => {
             </Col>
           </Row>
         </Col>
-        <Col xs={1}>
+        <Col xs={1} className="custom-middle-tool-bar">
         <img src={verticalImg} alt='vertical'></img>
       </Col>
-        <Col xs={8} style={{marginLeft:'-80px'}}>
+        <Col xs={9} style={{marginLeft:'-80px'}}>
           <Button variant="primary" onClick={handleShow}>
             Launch
           </Button>
