@@ -5,7 +5,9 @@ import modal1 from "../../images/modal1.png";
 import modal2 from "../../images/modal2.png";
 import modal3 from "../../images/modal3.png";
 import modal4 from "../../images/modal4.png";
+import longPic from "../../images/longPic.png"
 const QuantumRegisters = (props) => {
+  const { setItemSize,setSelectedImg } = props;
   return (
     <div>
       <Card>
@@ -14,7 +16,10 @@ const QuantumRegisters = (props) => {
           <span>Quantum registers</span>
           <br />
         </Card.Header>
-        <Card.Body style={{ textAlign: "center" }} className="custom-quantum-registers">
+        <Card.Body
+          style={{ textAlign: "center" }}
+          className="custom-quantum-registers"
+        >
           <div
             className="droppable-element"
             draggable={true}
@@ -23,7 +28,11 @@ const QuantumRegisters = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("register");
+              setSelectedImg({src:longPic,alt:'longPic'})
+            }}
           >
             <img src={modal2} width={100} alt="modal2"></img>
           </div>
@@ -35,7 +44,10 @@ const QuantumRegisters = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("register");
+            }}
           >
             <img src={modal3} width={100} alt="modal3"></img>
           </div>
@@ -47,7 +59,10 @@ const QuantumRegisters = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("register");
+            }}
           >
             <img src={modal4} width={100} alt="modal4"></img>
           </div>
@@ -59,7 +74,10 @@ const QuantumRegisters = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("register");
+            }}
           >
             <img src={modal1} width={100} alt="modal1"></img>
           </div>

@@ -48,7 +48,7 @@ body {
 
 // NOTE  offCanvas
 .top-right-off-canvas {
-  
+    background-color: transparent;
     margin-left: 60%;
     width: 40%;
     top: 0;
@@ -72,6 +72,7 @@ body {
     }
     .offcanvas-header{
         width: 80%;
+
         
     }
     .offcanvas-body{
@@ -86,7 +87,7 @@ body {
 
 
 
-// NOTE LEFT SIDE
+// NOTE Purple cards container on both LEFT and Bottom RIGHT
 
 .custom-purple-cards-container{
 .col{
@@ -156,18 +157,23 @@ body {
     }
 }
 
-// NOTE drop zone 
+// NOTE Graid layout drop zone 
 
 .react-grid-layout{
     background-color: #dcdef886;
+    margin-top: 5px;
+    height: 570px!important;
 }
 
 .react-grid-item{
-    border: 0.5px dashed blue!important;
-    background-color: beige;
+    // border: 0.5px dashed blue!important;
+    // background-color: beige;
     cursor: pointer;
     border-radius: 5px;
-    padding: 5px;
+    // padding: 5px;
+    img{
+        margin-left: -10px;
+    }
 }
 .react-grid-placeholder{
     background-color: #D0D4FF!important;
@@ -188,8 +194,3 @@ body {
             }
 }
 
-// NOTE Graid layout
-
-.custom-grid-layout{
-    height: 500px!important;
-}

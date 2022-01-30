@@ -21,19 +21,20 @@ const Dashboard = (props) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [gridLayout, setGridLayout] = useState([
-    { i: "a", x: 0, y: 0, w: 1, h: 2, static: true },
-    { i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-    { i: "c", x: 4, y: 0, w: 1, h: 2 },
-  ]);
+  const [itemSize,setItemSize] = useState('small')
+  const [gridLayout, setGridLayout] = useState([]);
+  const [gridItemImgs,setGridItemImgs] = useState([])
+  const [selectedImg, setSelectedImg] = useState(null)
 
   const onDrop = (layout, layoutItem, _event) => {
     // alert(`Dropped element props:\n${JSON.stringify(layoutItem, ['x', 'y', 'w', 'h'], 2)}`);
     console.log(layoutItem);
     console.log(layout);
+    console.log(_event);
     let tempArray = [];
     for (let i = 0; i < layout.length; i++) {
       const element = layout[i];
+      // if it startWith itemId. It means its already created.
       tempArray.push({
         i: element.i.startsWith("itemId")
           ? element.i
@@ -41,12 +42,22 @@ const Dashboard = (props) => {
         x: element.x,
         y: element.y,
         w: element.w,
-        h: element.h,
+        h: element.i.startsWith("itemId") ? element.h : element.h * 2,
       });
     }
     setGridLayout(tempArray);
   };
 
+  const updateItemImg = () =>{
+  
+      let tempArray = gridItemImgs
+      tempArray.push(
+       selectedImg
+      )
+      setGridItemImgs(tempArray)
+  
+  }
+ 
   return (
     <div className=" d-flex flex-column flex-grow-1 mb-5">
       <Offcanvas
@@ -65,7 +76,17 @@ const Dashboard = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", '');
+              setItemSize('small')
+              setSelectedImg({src:e.target.src,
+                alt: e.target.alt})
+            }}
+            onDragEnd={(e)=>{
+              console.log('end',e.target.src)
+              
+            }}
+
           >
             <img src={Hadmard} width={100} alt="Hadmard"></img>
           </div>
@@ -77,7 +98,12 @@ const Dashboard = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", '');
+              setItemSize('small')
+              setSelectedImg({src:e.target.src,
+                alt: e.target.alt})
+            }}
           >
             <img
               src={ParameterControl}
@@ -110,9 +136,7 @@ const Dashboard = (props) => {
             <img src={QuantamData} width={100} alt="QuantamData"></img>
           </div>
         </Offcanvas.Body>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
+        <Offcanvas.Header closeButton></Offcanvas.Header>
       </Offcanvas>
       <Row>
         <Col xs={2} className="custom-purple-cards-container">
@@ -129,7 +153,7 @@ const Dashboard = (props) => {
               <MyProjects />
             </Col>
             <Col>
-              <QuantumRegisters />
+              <QuantumRegisters setItemSize={setItemSize} setSelectedImg={setSelectedImg}/>
             </Col>
           </Row>
           <Row>
@@ -139,19 +163,16 @@ const Dashboard = (props) => {
           </Row>
         </Col>
         <Col xs={1} className="custom-middle-tool-bar">
-          <img src={verticalImg} alt="vertical"></img>
+          <img src={verticalImg} alt="vertical" onClick={handleShow}></img>
         </Col>
         <Col xs={9} style={{ marginLeft: "-80px" }}>
-          <Button variant="primary" onClick={handleShow}>
-            Launch
-          </Button>
           <Row>
             <GridLayout
               className="layout custom-grid-layout"
               layout={gridLayout}
-              cols={12}
+              cols={14}
               rowHeight={30}
-              width={1200}
+              width={1400}
               allowOverlap={true}
               preventCollision={true}
               isDroppable={true}
@@ -159,10 +180,23 @@ const Dashboard = (props) => {
                 console.log("layout", layout);
               }}
               onDrop={(layout, layoutItem, _event) =>
+                {
                 onDrop(layout, layoutItem, _event)
+                updateItemImg()
+              }
+              }
+              onDropDragOver={
+                (e)=>{
+                  if(itemSize === 'register'){
+                    return({w:14,h:1})
+                  }else{
+                    return({w:2,h:2})
+                  }
+                  
+                }
               }
             >
-              {gridLayout.map((e) => {
+              {gridLayout.map((e,index) => {
                 return (
                   <div key={e.i} className={e.static ? "static" : ""}>
                     {e.static ? (
@@ -173,14 +207,16 @@ const Dashboard = (props) => {
                         Static - {e.i}
                       </span>
                     ) : (
-                      <span className="text">{e.i}</span>
+                      // <span className="text">{e.i}</span>
+                      gridItemImgs[index]&&
+                      (<img src={gridItemImgs[index].src} alt={gridItemImgs[index].alt} width={gridItemImgs[index].alt === 'longPic' ? 1390:150}></img>)
                     )}
                   </div>
                 );
               })}
             </GridLayout>
           </Row>
-          <Row>
+          <Row className="custom-purple-cards-container">
             <Col>
               <QuantumStates />
             </Col>
@@ -188,7 +224,7 @@ const Dashboard = (props) => {
               <QuantumStatesDirac />
             </Col>
           </Row>
-          <Row>
+          <Row className="custom-purple-cards-container">
             <ModulesInUseCard />
           </Row>
         </Col>
