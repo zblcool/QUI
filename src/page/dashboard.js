@@ -7,12 +7,14 @@ import MyProjects from "../component/LeftSide/MyProjects";
 import QPUConfig from "../component/LeftSide/QPUConfig";
 import QuantumRegisters from "../component/LeftSide/QuantumRegisters";
 import leftSideImg from "../images/leftSide.png";
-import verticalImg from "../images/veriticaDivider.png"
-import Hadmard from "../images/Hadmard.png"
-import ParameterControl from "../images/ParameterControl.png"
-import QNN from "../images/QNN.png"
-import QuantamData from "../images/QuantamData.png"
-
+import verticalImg from "../images/veriticaDivider.png";
+import Hadmard from "../images/Hadmard.png";
+import ParameterControl from "../images/ParameterControl.png";
+import QNN from "../images/QNN.png";
+import QuantamData from "../images/QuantamData.png";
+import QuantumStates from "../component/RightSide/QuantumStates";
+import QuantumStatesDirac from "../component/RightSide/QuantumStatesDirac";
+import ModulesInUseCard from "../component/RightSide/ModulesInUseCard";
 
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
@@ -59,57 +61,54 @@ const Dashboard = (props) => {
             className="droppable-element"
             draggable={true}
             unselectable="on"
-    
             // this is a hack for firefox
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
           >
-            
             <img src={Hadmard} width={100} alt="Hadmard"></img>
           </div>
           <div
-          className="droppable-element"
-          draggable={true}
-          unselectable="on"
-  
-          // this is a hack for firefox
-          // Firefox requires some kind of initialization
-          // which we can do by adding this attribute
-          // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-          onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
-        >
-          
-          <img src={ParameterControl} width={100} alt="ParameterControl"></img>
-        </div>
-        <div
-        className="droppable-element"
-        draggable={true}
-        unselectable="on"
-
-        // this is a hack for firefox
-        // Firefox requires some kind of initialization
-        // which we can do by adding this attribute
-        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-        onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
-      >
-        
-        <img src={QNN} width={100} alt="QNN"></img>
-      </div>
-      <div
-      className="droppable-element"
-      draggable={true}
-      unselectable="on"
-      // this is a hack for firefox
-      // Firefox requires some kind of initialization
-      // which we can do by adding this attribute
-      // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-      onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
-    >
-      
-      <img src={QuantamData} width={100} alt="QuantamData"></img>
-    </div>
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+          >
+            <img
+              src={ParameterControl}
+              width={100}
+              alt="ParameterControl"
+            ></img>
+          </div>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+          >
+            <img src={QNN} width={100} alt="QNN"></img>
+          </div>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+          >
+            <img src={QuantamData} width={100} alt="QuantamData"></img>
+          </div>
         </Offcanvas.Body>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Offcanvas</Offcanvas.Title>
@@ -140,52 +139,58 @@ const Dashboard = (props) => {
           </Row>
         </Col>
         <Col xs={1} className="custom-middle-tool-bar">
-        <img src={verticalImg} alt='vertical'></img>
-      </Col>
-        <Col xs={9} style={{marginLeft:'-80px'}}>
+          <img src={verticalImg} alt="vertical"></img>
+        </Col>
+        <Col xs={9} style={{ marginLeft: "-80px" }}>
           <Button variant="primary" onClick={handleShow}>
             Launch
           </Button>
-          
-
-    
+          <Row>
             <GridLayout
-            className="layout"
-            layout={gridLayout}
-            cols={12}
-            rowHeight={30}
-            width={1200}
-            allowOverlap={true}
-            preventCollision={true}
-            isDroppable={true}
-            onLayoutChange={(layout)=>{
-              console.log('layout',layout)
-            }}
-            onDrop={(layout, layoutItem, _event) =>
-              onDrop(layout, layoutItem, _event)
-            }
-          >
-            {gridLayout.map((e) => {
-              return (
-                <div key={e.i} className={e.static ? "static" : ""}>
-                  {e.static ? (
-                    <span
-                      className="text"
-                      title="This item is static and cannot be removed or resized."
-                    >
-                      Static - {e.i}
-                    </span>
-                  ) : (
-                    <span className="text">{e.i}</span>
-                  )}
-                </div>
-              );
-            })}
-          </GridLayout>
-          
-          
-         
-
+              className="layout custom-grid-layout"
+              layout={gridLayout}
+              cols={12}
+              rowHeight={30}
+              width={1200}
+              allowOverlap={true}
+              preventCollision={true}
+              isDroppable={true}
+              onLayoutChange={(layout) => {
+                console.log("layout", layout);
+              }}
+              onDrop={(layout, layoutItem, _event) =>
+                onDrop(layout, layoutItem, _event)
+              }
+            >
+              {gridLayout.map((e) => {
+                return (
+                  <div key={e.i} className={e.static ? "static" : ""}>
+                    {e.static ? (
+                      <span
+                        className="text"
+                        title="This item is static and cannot be removed or resized."
+                      >
+                        Static - {e.i}
+                      </span>
+                    ) : (
+                      <span className="text">{e.i}</span>
+                    )}
+                  </div>
+                );
+              })}
+            </GridLayout>
+          </Row>
+          <Row>
+            <Col>
+              <QuantumStates />
+            </Col>
+            <Col>
+              <QuantumStatesDirac />
+            </Col>
+          </Row>
+          <Row>
+            <ModulesInUseCard />
+          </Row>
         </Col>
       </Row>
     </div>

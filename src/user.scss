@@ -2,6 +2,11 @@
 @import '../node_modules/react-grid-layout/css/styles.css';
 @import '../node_modules/react-resizable/css/styles.css';
 
+// NOTE General
+
+body {
+    overflow: hidden; /* Hide scrollbars */
+  }
 
 // NOTE Header
 .custom-header{
@@ -181,4 +186,10 @@
             &:after{
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
             }
+}
+
+// NOTE Graid layout
+
+.custom-grid-layout{
+    height: 500px!important;
 }
