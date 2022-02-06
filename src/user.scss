@@ -1,6 +1,5 @@
 
-@import '../node_modules/react-grid-layout/css/styles.css';
-@import '../node_modules/react-resizable/css/styles.css';
+
 
 // NOTE General
 
@@ -159,20 +158,24 @@ body {
 
 // NOTE Graid layout drop zone 
 
+.custom-grid-layout{
+    padding: 0;
+}
 .react-grid-layout{
+    position: relative!important;
     background-color: #dcdef886;
-    margin-top: 5px;
+    // margin-top: 5px;
     height: 570px!important;
 }
 
 .react-grid-item{
     // border: 0.5px dashed blue!important;
     // background-color: beige;
-    cursor: pointer;
+    // cursor: pointer;
     border-radius: 5px;
     // padding: 5px;
     img{
-        margin-left: -10px;
+        margin-left: -5px;
     }
 }
 .react-grid-placeholder{
@@ -193,4 +196,8 @@ body {
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5)
             }
 }
+
+
+
+// NOTE Library addons
 
