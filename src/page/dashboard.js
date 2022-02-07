@@ -27,6 +27,8 @@ const Dashboard = (props) => {
   const [gridLayout, setGridLayout] = useState([]);
   const [gridItemImgs, setGridItemImgs] = useState([]);
   const [selectedImg, setSelectedImg] = useState(null);
+  // counter 
+  const [count, setCount] = useState(gridLayout.length);
 
   const onDrop = (layout, layoutItem, _event) => {
     // alert(`Dropped element props:\n${JSON.stringify(layoutItem, ['x', 'y', 'w', 'h'], 2)}`);
@@ -34,20 +36,34 @@ const Dashboard = (props) => {
     console.log(layout);
     console.log(_event);
     let tempArray = [];
+    let newElementCounter = 0
     for (let i = 0; i < layout.length; i++) {
       const element = layout[i];
       // if it startWith itemId. It means its already created.
-      tempArray.push({
-        i: element.i.startsWith("itemId")
-          ? element.i
-          : "itemId" + (layout.length + i).toString(),
-        x: element.x,
-        y: element.y,
-        w: element.w,
-        h: element.i.startsWith("itemId") ? element.h : element.h * 2,
-        isResizable:false
-      });
+      if (element.i.startsWith("itemId")){
+        tempArray.push({
+          i: element.i,
+          x: element.x,
+          y: element.y,
+          w: element.w,
+          h:  element.h ,
+          isResizable:false
+        });
+      }else{
+        
+        tempArray.push({
+          i:  "itemId" + (count + i).toString(),
+          x: element.x,
+          y: element.y,
+          w: element.w,
+          h:  element.h * 2,
+          isResizable:false
+        });
+        newElementCounter ++
+      }
+
     }
+    setCount(count+newElementCounter)
     setGridLayout(tempArray);
   };
 
@@ -70,7 +86,8 @@ const Dashboard = (props) => {
       const element = tempLayout[i];
       // if it startWith itemId. It means its already created.
       tempArray.push({
-        i: "itemId" + (tempLayout.length + i).toString(),
+        // i: "itemId" + (tempLayout.length + i).toString(),
+        i: element.i,
         x: element.x,
         y: element.y,
         w: element.w,
