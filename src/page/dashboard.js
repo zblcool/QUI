@@ -16,7 +16,10 @@ import QuantumStates from "../component/RightSide/QuantumStates";
 import QuantumStatesDirac from "../component/RightSide/QuantumStatesDirac";
 import ModulesInUseCard from "../component/RightSide/ModulesInUseCard";
 
+
 import _, { remove } from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faLock, faLockOpen} from '@fortawesome/free-solid-svg-icons'
 
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
@@ -27,7 +30,7 @@ const Dashboard = (props) => {
   const [gridLayout, setGridLayout] = useState([]);
   const [gridItemImgs, setGridItemImgs] = useState([]);
   const [selectedImg, setSelectedImg] = useState(null);
-  // counter 
+  // counter
   const [count, setCount] = useState(gridLayout.length);
 
   const onDrop = (layout, layoutItem, _event) => {
@@ -36,34 +39,34 @@ const Dashboard = (props) => {
     console.log(layout);
     console.log(_event);
     let tempArray = [];
-    let newElementCounter = 0
+    let newElementCounter = 0;
     for (let i = 0; i < layout.length; i++) {
       const element = layout[i];
       // if it startWith itemId. It means its already created.
-      if (element.i.startsWith("itemId")){
+      if (element.i.startsWith("itemId")) {
         tempArray.push({
           i: element.i,
           x: element.x,
           y: element.y,
           w: element.w,
-          h:  element.h ,
-          isResizable:false
+          h: element.h,
+          isResizable: false,
+          isDraggable:element.isDraggable ? true : false
         });
-      }else{
-        
+      } else {
         tempArray.push({
-          i:  "itemId" + (count + i).toString(),
+          i: "itemId" + (count + i).toString(),
           x: element.x,
           y: element.y,
           w: element.w,
-          h:  element.h * 2,
-          isResizable:false
+          h: element.h * 2,
+          isResizable: false,
+          isDraggable:element.isDraggable ? true : false
         });
-        newElementCounter ++
+        newElementCounter++;
       }
-
     }
-    setCount(count+newElementCounter)
+    setCount(count + newElementCounter);
     setGridLayout(tempArray);
   };
 
@@ -72,15 +75,30 @@ const Dashboard = (props) => {
     tempArray.push(selectedImg);
     setGridItemImgs(tempArray);
   };
+  const lockGridItem = (i) => {
+    // let tempArray = [...gridLayout]
+    let tempArray = gridLayout.map((item,index) => 
+      {
+        if (index === i){
+          return {...item, isDraggable: !item.isDraggable}; //gets everything that was already in item, and updates "done"
+        }
+        return item; // else return unmodified item 
+      });
+ 
   
-  const removeGridItem = (i) =>{
+    setGridLayout(tempArray)
+    console.log(tempArray)
+    console.log('done');
+  };
+
+  const removeGridItem = (i) => {
     console.log("removing", i);
-    
+
     // setGridLayout(gridLayout.splice(i+1,1))
-    console.log('temp',gridLayout)
-    let tempLayout = gridLayout
-    gridLayout.splice(i,1)
-    console.log('temp',tempLayout)
+    console.log("temp", gridLayout);
+    let tempLayout = gridLayout;
+    gridLayout.splice(i, 1);
+    console.log("temp", tempLayout);
     let tempArray = [];
     for (let i = 0; i < tempLayout.length; i++) {
       const element = tempLayout[i];
@@ -91,15 +109,16 @@ const Dashboard = (props) => {
         x: element.x,
         y: element.y,
         w: element.w,
-        h:  element.h ,
-        isResizable:false
+        h: element.h,
+        isResizable: false,
+        isDraggable:element.isDraggable ? true : false
       });
     }
     setGridLayout(tempArray);
-    let tempImgArray = gridItemImgs
-    tempImgArray.splice(i,1)
-    setGridItemImgs(tempImgArray)
-  }
+    let tempImgArray = gridItemImgs;
+    tempImgArray.splice(i, 1);
+    setGridItemImgs(tempImgArray);
+  };
   return (
     <div className=" d-flex flex-column flex-grow-1 mb-5">
       <Offcanvas
@@ -113,7 +132,6 @@ const Dashboard = (props) => {
           <div
             className="droppable-element"
             draggable={true}
-       
             unselectable="on"
             // this is a hack for firefox
             // Firefox requires some kind of initialization
@@ -235,11 +253,18 @@ const Dashboard = (props) => {
               }}
             >
               {gridLayout.map((e, index) => {
+                const lockStyle = {
+                  position: "absolute",
+                  right: "2px",
+                  top: -25,
+                  right:20,
+                  cursor: "pointer",
+                };
                 const removeStyle = {
                   position: "absolute",
                   right: "2px",
                   top: -25,
-                  cursor: "pointer"
+                  cursor: "pointer",
                 };
                 return (
                   <div key={e.i} className={e.static ? "static" : ""}>
@@ -254,25 +279,39 @@ const Dashboard = (props) => {
                       // <span className="text">{e.i}</span>
                       gridItemImgs[index] && (
                         <div>
-
-                        <img
-                          src={gridItemImgs[index].src}
-                          alt={gridItemImgs[index].alt}
-                          width={
-                            gridItemImgs[index].alt === "longPic" ? 1390 : 120
-                          }
-                        ></img>
-
+                          <img
+                            src={gridItemImgs[index].src}
+                            alt={gridItemImgs[index].alt}
+                            width={
+                              gridItemImgs[index].alt === "longPic" ? 1390 : 120
+                            }
+                          ></img>
                         </div>
                       )
                     )}
                     <span
-                    className="remove"
-                    style={removeStyle}
-                    onClick={()=>{ removeGridItem(index)}}
-                  >
-                    X
-                  </span>
+                      className="remove"
+                      style={removeStyle}
+                      onClick={() => {
+                        removeGridItem(index);
+                      }}
+                    >
+                      X
+                    </span>
+                    {gridItemImgs[index].alt === "longPic" ? (
+                      <span
+                        className="lock"
+                        style={lockStyle}
+                        onClick={() => {
+                          lockGridItem(index);
+                        }}
+                      >
+
+                      <FontAwesomeIcon icon={ typeof gridLayout[index].isDraggable === 'undefined'  ? faLockOpen : (gridLayout[index].isDraggable ? faLockOpen:faLock)}  />
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 );
               })}
