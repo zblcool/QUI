@@ -52,6 +52,8 @@ body {
     width: 40%;
     top: 0;
     border: 0;
+    height: 260px;
+    
     .droppable-element{
         height: 100px;
         padding: 5px;
@@ -79,6 +81,7 @@ body {
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         width: 80%;
+        padding-left: 30px;
         background-image: linear-gradient(to right, #D0D4FF , #EBEDF2);
         border:1px solid black
     }

@@ -8,6 +8,7 @@ import QPUConfig from "../component/LeftSide/QPUConfig";
 import QuantumRegisters from "../component/LeftSide/QuantumRegisters";
 import leftSideImg from "../images/leftSide.png";
 import verticalImg from "../images/veriticaDivider.png";
+import verticalSidebar from '../images/verticalSidebar.png'
 import Hadmard from "../images/Hadmard.png";
 import ParameterControl from "../images/ParameterControl.png";
 import QNN from "../images/QNN.png";
@@ -129,6 +130,7 @@ const Dashboard = (props) => {
         backdrop={false}
       >
         <Offcanvas.Body>
+        <img src={verticalSidebar} alt='verticalSidebar' style={{position:'absolute',left:0,top:-4}} height={220}></img>
           <div
             className="droppable-element"
             draggable={true}
@@ -176,7 +178,11 @@ const Dashboard = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+                      onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("small");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
           >
             <img src={QNN} width={100} alt="QNN"></img>
           </div>
@@ -188,7 +194,11 @@ const Dashboard = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
+                      onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("small");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
           >
             <img src={QuantamData} width={100} alt="QuantamData"></img>
           </div>
