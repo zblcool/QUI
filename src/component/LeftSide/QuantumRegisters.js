@@ -6,6 +6,8 @@ import modal2 from "../../images/modal2.png";
 import modal3 from "../../images/modal3.png";
 import modal4 from "../../images/modal4.png";
 import longPic from "../../images/longPic.png"
+import MainRegister from '../../images/MainRegister.png'
+import PickRegister from '../../images/pinkRegister.png'
 const QuantumRegisters = (props) => {
   const { setItemSize,setSelectedImg } = props;
   return (
@@ -46,6 +48,7 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
+              setSelectedImg({src:PickRegister,alt:'longPic'})
               setItemSize("register");
             }}
           >
@@ -76,6 +79,7 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
+              setSelectedImg({src:MainRegister,alt:'longPic'})
               setItemSize("register");
             }}
           >

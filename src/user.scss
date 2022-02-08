@@ -167,7 +167,14 @@ body {
     // margin-top: 5px;
     height: 570px!important;
 }
-
+@keyframes slideInFromLeft {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 .react-grid-item{
     // border: 0.5px dashed blue!important;
     // background-color: beige;
@@ -177,6 +184,7 @@ body {
     img{
         margin-left: -5px;
     }
+    animation: 0.5s ease-in-out 0s 1 slideInFromLeft;
 }
 .react-grid-placeholder{
     background-color: #D0D4FF!important;

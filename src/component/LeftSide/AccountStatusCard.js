@@ -9,7 +9,7 @@ const AccountStatusCard = (props) => {
     <Card.Header className='d-flex justify-content-between'><img src={accountsImg} alt='account' width={15}></img><span>Account status</span><br/></Card.Header>
     <Card.Body>
       <blockquote className="blockquote mb-0">
-      <img src={accountsPlaceholder} alt='account' width={120}></img>
+      <img src={accountsPlaceholder} alt='account' width={115}></img>
 
       </blockquote>
     </Card.Body>
