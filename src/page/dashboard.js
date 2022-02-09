@@ -306,7 +306,7 @@ const Dashboard = (props) => {
                         removeGridItem(index);
                       }}
                     >
-                      X
+                      x
                     </span>
                     {gridItemImgs[index].alt === "longPic" ? (
                       <span

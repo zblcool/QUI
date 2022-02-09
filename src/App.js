@@ -7,7 +7,7 @@ import './user.scss'
 function App() {
   return (
     <div className="App">
-    <Container fluid>
+    <Container fluid style={{width:1885+'px'}}>
       <Row>
         <Col xs={{ span: 7, offset: 0 }} className="custom-header">
           <Header />
