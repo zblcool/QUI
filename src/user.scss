@@ -1,5 +1,6 @@
 
-
+@import 'codemirror/lib/codemirror.css';
+@import 'codemirror/theme/material.css';
 
 // NOTE General
 
@@ -51,6 +52,47 @@ body {
     margin-left: 60%;
     width: 40%;
     top: 0;
+    border: 0;
+    height: 260px;
+    
+    .droppable-element{
+        height: 100px;
+        padding: 5px;
+
+        img{
+            border-radius: 10px;
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 1 1px 2px rgba(0, 0, 0, 0.1);
+            &:hover {
+                transform: scale(1.04, 1.04);
+            }
+            &:after{
+                box-shadow: 1 5px 10px rgba(0, 0, 0, 0.5);
+                transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+        }
+    }
+    .offcanvas-header{
+        width: 80%;
+
+        
+    }
+    .offcanvas-body{
+        display: flex;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        width: 80%;
+        padding-left: 30px;
+        background-image: linear-gradient(to right, #D0D4FF , #EBEDF2);
+        border:1px solid black
+    }
+}
+
+.end-right-off-canvas {
+    background-color: transparent;
+    margin-left: 72%;
+    width: 20%;
+    margin-top: 11%;
     border: 0;
     height: 260px;
     

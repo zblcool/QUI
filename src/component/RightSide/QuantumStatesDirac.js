@@ -6,7 +6,7 @@ const QuantumStatesDirac = (props) => {
   return (
     <div>
     <Card>
-    <Card.Header className='d-flex justify-content-between'><img src={classicalOpt} alt='classicalOpt' width={20}></img><span>Classical Optimizers</span><br/></Card.Header>
+    <Card.Header className='d-flex justify-content-between'><img src={classicalOpt} alt='classicalOpt' width={20}></img><span>Quantum States 【Dirac Notation】</span><br/></Card.Header>
     <Card.Body style={{backgroundColor:'#F6F7FC'}}>
       <blockquote className="blockquote mb-0"  >
       <img src={diracPlaceholders} alt='classicalOpt' width={550}></img>

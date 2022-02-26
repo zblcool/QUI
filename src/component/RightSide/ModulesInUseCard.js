@@ -7,7 +7,7 @@ const ModulesInUseCard = (props) => {
   return (
     <div className='p-0'>
     <Card>
-    <Card.Header className='d-flex justify-content-between'><img src={classicalOpt} alt='classicalOpt' width={20}></img><span>Classical Optimizers</span><br/></Card.Header>
+    <Card.Header className='d-flex justify-content-between'><img src={classicalOpt} alt='classicalOpt' width={20}></img><span>Module in use</span><br/></Card.Header>
     <Card.Body className='py-0 px-2'>
       <blockquote className="blockquote mb-0">
       <img src={modulePlaceholder} alt='classicalOpt' ></img>

@@ -8,19 +8,23 @@ import QPUConfig from "../component/LeftSide/QPUConfig";
 import QuantumRegisters from "../component/LeftSide/QuantumRegisters";
 import leftSideImg from "../images/leftSide.png";
 import verticalImg from "../images/veriticaDivider.png";
-import verticalSidebar from '../images/verticalSidebar.png'
+import verticalSidebar from "../images/verticalSidebar.png";
 import Hadmard from "../images/Hadmard.png";
+import QAA from "../images/QAA.png";
+import QAABlank from "../images/QAABlank.png";
 import ParameterControl from "../images/ParameterControl.png";
 import QNN from "../images/QNN.png";
+import Ablock from "../images/Ablock.png";
+import Oblock from "../images/Oblock.png";
+import Sblock from "../images/Sblock.png";
 import QuantamData from "../images/QuantamData.png";
 import QuantumStates from "../component/RightSide/QuantumStates";
 import QuantumStatesDirac from "../component/RightSide/QuantumStatesDirac";
 import ModulesInUseCard from "../component/RightSide/ModulesInUseCard";
 
-
 import _, { remove } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faLock, faLockOpen} from '@fortawesome/free-solid-svg-icons'
+import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
@@ -31,6 +35,7 @@ const Dashboard = (props) => {
   const [gridLayout, setGridLayout] = useState([]);
   const [gridItemImgs, setGridItemImgs] = useState([]);
   const [selectedImg, setSelectedImg] = useState(null);
+  const [printedCode, setPrintedCode] = useState("");
   // counter
   const [count, setCount] = useState(gridLayout.length);
 
@@ -52,7 +57,7 @@ const Dashboard = (props) => {
           w: element.w,
           h: element.h,
           isResizable: false,
-          isDraggable:element.isDraggable ? true : false
+          isDraggable: element.isDraggable ? true : false,
         });
       } else {
         tempArray.push({
@@ -62,13 +67,18 @@ const Dashboard = (props) => {
           w: element.w,
           h: element.h * 2,
           isResizable: false,
-          isDraggable:element.isDraggable ? true : false
+          isDraggable: element.isDraggable ? true : false,
         });
         newElementCounter++;
       }
     }
     setCount(count + newElementCounter);
     setGridLayout(tempArray);
+  };
+
+  // NOTE print code
+  const handlePrint = () => {
+    setPrintedCode();
   };
 
   const updateItemImg = () => {
@@ -78,18 +88,16 @@ const Dashboard = (props) => {
   };
   const lockGridItem = (i) => {
     // let tempArray = [...gridLayout]
-    let tempArray = gridLayout.map((item,index) => 
-      {
-        if (index === i){
-          return {...item, isDraggable: !item.isDraggable}; //gets everything that was already in item, and updates "done"
-        }
-        return item; // else return unmodified item 
-      });
- 
-  
-    setGridLayout(tempArray)
-    console.log(tempArray)
-    console.log('done');
+    let tempArray = gridLayout.map((item, index) => {
+      if (index === i) {
+        return { ...item, isDraggable: !item.isDraggable }; //gets everything that was already in item, and updates "done"
+      }
+      return item; // else return unmodified item
+    });
+
+    setGridLayout(tempArray);
+    console.log(tempArray);
+    console.log("done");
   };
 
   const removeGridItem = (i) => {
@@ -112,7 +120,7 @@ const Dashboard = (props) => {
         w: element.w,
         h: element.h,
         isResizable: false,
-        isDraggable:element.isDraggable ? true : false
+        isDraggable: element.isDraggable ? true : false,
       });
     }
     setGridLayout(tempArray);
@@ -130,7 +138,12 @@ const Dashboard = (props) => {
         backdrop={false}
       >
         <Offcanvas.Body>
-        <img src={verticalSidebar} alt='verticalSidebar' style={{position:'absolute',left:0,top:-4}} height={220}></img>
+          <img
+            src={verticalSidebar}
+            alt="verticalSidebar"
+            style={{ position: "absolute", left: 0, top: -4 }}
+            height={220}
+          ></img>
           <div
             className="droppable-element"
             draggable={true}
@@ -160,6 +173,25 @@ const Dashboard = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
+              setItemSize("Block");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
+            onDragEnd={(e) => {
+              console.log("end", e.target.src);
+            }}
+          >
+            <img src={QAABlank} width={100} alt="QAA"></img>
+          </div>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
             }}
@@ -178,7 +210,7 @@ const Dashboard = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-                      onDragStart={(e) => {
+            onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
@@ -194,13 +226,87 @@ const Dashboard = (props) => {
             // Firefox requires some kind of initialization
             // which we can do by adding this attribute
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-                      onDragStart={(e) => {
+            onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
             }}
           >
             <img src={QuantamData} width={100} alt="QuantamData"></img>
+          </div>
+        </Offcanvas.Body>
+        <Offcanvas.Header closeButton></Offcanvas.Header>
+      </Offcanvas>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        placement="end"
+        className="end-right-off-canvas"
+        backdrop={false}
+      >
+        <Offcanvas.Body>
+          <img
+            src={verticalSidebar}
+            alt="verticalSidebar"
+            style={{ position: "absolute", left: 0, top: 0 }}
+            height={210}
+          ></img>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("small");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
+            onDragEnd={(e) => {
+              console.log("end", e.target.src);
+            }}
+          >
+            <img src={Ablock} width={50} alt="block"></img>
+          </div>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("small");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
+            onDragEnd={(e) => {
+              console.log("end", e.target.src);
+            }}
+          >
+            <img src={Oblock} width={50} alt="block"></img>
+          </div>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              setItemSize("small");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
+            onDragEnd={(e) => {
+              console.log("end", e.target.src);
+            }}
+          >
+            <img src={Sblock} width={50} alt="block"></img>
           </div>
         </Offcanvas.Body>
         <Offcanvas.Header closeButton></Offcanvas.Header>
@@ -228,7 +334,7 @@ const Dashboard = (props) => {
           </Row>
           <Row>
             <Col>
-              <ClassicalOptimizers />
+              <ClassicalOptimizers printedCode={printedCode} />
             </Col>
           </Row>
         </Col>
@@ -246,6 +352,7 @@ const Dashboard = (props) => {
               width={1400}
               allowOverlap={true}
               preventCollision={true}
+              compactType={null}
               isDroppable={true}
               onLayoutChange={(layout) => {
                 console.log("layout", layout);
@@ -258,7 +365,11 @@ const Dashboard = (props) => {
                 if (itemSize === "register") {
                   return { w: 24, h: 1 };
                 } else {
-                  return { w: 2, h: 1 };
+                  if (itemSize === "small") {
+                    return { w: 2, h: 1 };
+                  } else {
+                    return { w: 1, h: 1 };
+                  }
                 }
               }}
             >
@@ -267,7 +378,7 @@ const Dashboard = (props) => {
                   position: "absolute",
                   right: "2px",
                   top: -25,
-                  right:20,
+                  right: 20,
                   cursor: "pointer",
                 };
                 const removeStyle = {
@@ -293,7 +404,11 @@ const Dashboard = (props) => {
                             src={gridItemImgs[index].src}
                             alt={gridItemImgs[index].alt}
                             width={
-                              gridItemImgs[index].alt === "longPic" ? 1390 : 120
+                              gridItemImgs[index].alt === "longPic"
+                                ? 1390
+                                : gridItemImgs[index].alt === "QAA"
+                                ? 520
+                                : (gridItemImgs[index].alt === "block")?90:120
                             }
                           ></img>
                         </div>
@@ -316,8 +431,15 @@ const Dashboard = (props) => {
                           lockGridItem(index);
                         }}
                       >
-
-                      <FontAwesomeIcon icon={ typeof gridLayout[index].isDraggable === 'undefined'  ? faLockOpen : (gridLayout[index].isDraggable ? faLockOpen:faLock)}  />
+                        <FontAwesomeIcon
+                          icon={
+                            typeof gridLayout[index].isDraggable === "undefined"
+                              ? faLockOpen
+                              : gridLayout[index].isDraggable
+                              ? faLockOpen
+                              : faLock
+                          }
+                        />
                       </span>
                     ) : (
                       ""
