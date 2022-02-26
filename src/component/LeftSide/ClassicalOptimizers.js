@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Navbar, Container, Card } from "react-bootstrap";
 import classicalOpt from "../../images/Classical.png";
 import classicalPlaceholders from "../../images/placeholders/Classical.png";
@@ -6,6 +6,14 @@ import { UnControlled as CodeMirror } from "react-codemirror2";
 require('codemirror/mode/python/python');
 require('codemirror/mode/javascript/javascript');
 const ClassicalOptimizers = (props) => {
+  const {printedCode} = props
+  const newRef = useRef()
+  React.useEffect(()=>{
+    console.log(newRef.current.editor)
+    const tempObj = newRef.current.editor.getScrollInfo();
+    console.log(tempObj)
+    newRef.current.editor.scrollTo(tempObj.left,tempObj.height)
+  },[printedCode])
   return (
     <div>
       <Card>
@@ -16,11 +24,14 @@ const ClassicalOptimizers = (props) => {
         </Card.Header>
         <Card.Body style={{ backgroundColor: "#dfe2ec" }}>
           <CodeMirror
-            value={"system_qubits = eng.allocate_qureg(3)"+"\n" + "qaa_ancilla = eng.allocate_qubit() "}
+            ref={newRef}
+            resizable={true}
+            value={printedCode}
             options={{
               mode: "python",
               theme: "material",
-              lineNumbers: true
+              lineNumbers: true,
+              autofocus:true
               
             }}
             onChange={(editor, data, value) => {}}

@@ -9,7 +9,7 @@ import longPic from "../../images/longPic.png"
 import MainRegister from '../../images/MainRegister.png'
 import PickRegister from '../../images/pinkRegister.png'
 const QuantumRegisters = (props) => {
-  const { setItemSize,setSelectedImg } = props;
+  const { setItemSize,setSelectedImg,handlePrint } = props;
   return (
     <div>
       <Card>
@@ -48,8 +48,10 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
+             
               setSelectedImg({src:PickRegister,alt:'longPic'})
               setItemSize("register");
+              handlePrint('register1')
             }}
           >
             <img src={modal3} width={100} alt="modal3"></img>
@@ -79,8 +81,10 @@ const QuantumRegisters = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
+              
               setSelectedImg({src:MainRegister,alt:'longPic'})
               setItemSize("register");
+              handlePrint('register2')
             }}
           >
             <img src={modal1} width={100} alt="modal1"></img>

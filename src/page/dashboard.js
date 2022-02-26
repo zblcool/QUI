@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Col, Offcanvas, Row } from "react-bootstrap";
+import { Button, Col, Modal, Offcanvas, Row } from "react-bootstrap";
 import GridLayout from "react-grid-layout";
 import AccountStatusCard from "../component/LeftSide/AccountStatusCard";
 import ClassicalOptimizers from "../component/LeftSide/ClassicalOptimizers";
@@ -15,8 +15,12 @@ import QAABlank from "../images/QAABlank.png";
 import ParameterControl from "../images/ParameterControl.png";
 import QNN from "../images/QNN.png";
 import Ablock from "../images/Ablock.png";
+import AblockZ from "../images/AblockZ.png";
 import Oblock from "../images/Oblock.png";
 import Sblock from "../images/Sblock.png";
+import RedBlock from "../images/redBlock.png";
+import Ntimes from "../images/Ntimes.png"
+import measure from "../images/measure.png"
 import QuantamData from "../images/QuantamData.png";
 import QuantumStates from "../component/RightSide/QuantumStates";
 import QuantumStatesDirac from "../component/RightSide/QuantumStatesDirac";
@@ -26,16 +30,32 @@ import _, { remove } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 
+import styled, { keyframes } from "styled-components";
+import { flash } from "react-animations";
+
+const bounceAnimation = keyframes`${flash}`;
+
+const BouncyDiv = styled.div`
+  animation: 1s ${bounceAnimation};
+`;
+
 const Dashboard = (props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
   const [itemSize, setItemSize] = useState("small");
   const [gridLayout, setGridLayout] = useState([]);
   const [gridItemImgs, setGridItemImgs] = useState([]);
   const [selectedImg, setSelectedImg] = useState(null);
   const [printedCode, setPrintedCode] = useState("");
+  const [showAblockZ, setShowAblockZ] = useState(false);
+  const [hasDropedBlockA, setHasDropedBlockA] = useState(false);
+  const [loopFinishedSetup, setLoopFinishedSetup] = useState(false);
   // counter
   const [count, setCount] = useState(gridLayout.length);
 
@@ -77,8 +97,91 @@ const Dashboard = (props) => {
   };
 
   // NOTE print code
-  const handlePrint = () => {
-    setPrintedCode();
+  const handlePrint = (e) => {
+    switch (e) {
+      case "register1":
+        setTimeout(() => {
+          setPrintedCode([
+            ...printedCode,
+            "qaa_ancilla = eng.allocate_qubit()",
+            " ",
+          ]);
+        }, 1000);
+
+        break;
+      case "register2":
+        setTimeout(() => {
+          setPrintedCode([
+            ...printedCode,
+            "system_qubits = eng.allocate_qureg(3)",
+            " ",
+          ]);
+        }, 1000);
+        break;
+      case "redBlock":
+        setTimeout(() => {
+          setPrintedCode([
+            ...printedCode,
+            "X | qaa_ancilla",
+            "H | qaa_ancilla",
+            " ",
+          ]);
+        }, 1000);
+        break;
+      case "oblock":
+        setTimeout(() => {
+          setPrintedCode([
+            ...printedCode,
+            "def func_oracle(eng,system_qubits,qaa_ancilla):",
+            "  with Compute(eng):",
+            "    All(X) | system_qubits[0::2]",
+            "  with Control(eng, system_qubits):",
+            "    X | qaa_ancilla",
+            "  Uncompute(eng)",
+          ]);
+        }, 1000);
+        break;
+      case "aBlock":
+        if (!hasDropedBlockA) {
+          setTimeout(() => {
+            setPrintedCode([
+              ...printedCode,
+              "def func_algorithm(eng,system_qubits):",
+              "  All(H) | system_qubits",
+            ]);
+          }, 1000);
+          setHasDropedBlockA(true);
+        } else {
+          setTimeout(() => {
+            setPrintedCode([
+              ...printedCode,
+              "func_algorithm(eng, system_qubits)",
+              " ",
+            ]);
+          }, 1000);
+          setHasDropedBlockA(false);
+        }
+
+        break;
+      case "Loop":
+        setTimeout(() => {
+          setPrintedCode([
+            ...printedCode,
+            "with Loop(eng, num_it):",
+            "  QAA(func_algorithm, func_oracle) | (system_qubits, qaa_ancilla)"
+          ]);
+          setLoopFinishedSetup(true)
+        }, 1000);
+        break;
+
+      case 'measure':
+        setTimeout(() => {
+        setPrintedCode([...printedCode, "All(Measure) | system_qubits"]);
+        },1000);
+        break;
+      default:
+        break;
+    }
   };
 
   const updateItemImg = () => {
@@ -234,6 +337,49 @@ const Dashboard = (props) => {
           >
             <img src={QuantamData} width={100} alt="QuantamData"></img>
           </div>
+          <div
+            className="droppable-element"
+            draggable={true}
+            unselectable="on"
+            // this is a hack for firefox
+            // Firefox requires some kind of initialization
+            // which we can do by adding this attribute
+            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+            onDragStart={(e) => {
+              e.dataTransfer.setData("text/plain", "");
+              handlePrint("redBlock");
+              setItemSize("smallBlock");
+              setSelectedImg({ src: e.target.src, alt: e.target.alt });
+            }}
+            onDragEnd={(e) => {
+              console.log("end", e.target.src);
+            }}
+            style={{ position: "absolute", top: 120 }}
+          >
+            <img src={RedBlock} width={50} alt="block"></img>
+          </div>
+          <div
+          className="droppable-element"
+          draggable={true}
+          unselectable="on"
+          // this is a hack for firefox
+          // Firefox requires some kind of initialization
+          // which we can do by adding this attribute
+          // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+          onDragStart={(e) => {
+            e.dataTransfer.setData("text/plain", "");
+            handlePrint("measure");
+            setItemSize("block");
+            setSelectedImg({ src: e.target.src, alt: e.target.alt });
+          }}
+          onDragEnd={(e) => {
+            console.log("end", e.target.src);
+          }}
+          style={{ position: "absolute", top: 100,left:150 }}
+        >
+          <img src={measure} width={50} alt="block"></img>
+        </div>
+          
         </Offcanvas.Body>
         <Offcanvas.Header closeButton></Offcanvas.Header>
       </Offcanvas>
@@ -261,8 +407,10 @@ const Dashboard = (props) => {
             // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
             onDragStart={(e) => {
               e.dataTransfer.setData("text/plain", "");
+              setShowAblockZ(true);
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
+              handlePrint("aBlock");
             }}
             onDragEnd={(e) => {
               console.log("end", e.target.src);
@@ -270,6 +418,30 @@ const Dashboard = (props) => {
           >
             <img src={Ablock} width={50} alt="block"></img>
           </div>
+          {showAblockZ && (
+            <div
+              className="droppable-element"
+              draggable={true}
+              unselectable="on"
+              // this is a hack for firefox
+              // Firefox requires some kind of initialization
+              // which we can do by adding this attribute
+              // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+              onDragStart={(e) => {
+                e.dataTransfer.setData("text/plain", "");
+                setItemSize("small");
+                setSelectedImg({ src: e.target.src, alt: e.target.alt });
+                setTimeout(() => {
+                  handleModalShow();
+                }, 2000);
+              }}
+              onDragEnd={(e) => {
+                console.log("end", e.target.src);
+              }}
+            >
+              <img src={AblockZ} width={50} alt="block"></img>
+            </div>
+          )}
           <div
             className="droppable-element"
             draggable={true}
@@ -282,6 +454,7 @@ const Dashboard = (props) => {
               e.dataTransfer.setData("text/plain", "");
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
+              handlePrint("oblock");
             }}
             onDragEnd={(e) => {
               console.log("end", e.target.src);
@@ -328,6 +501,7 @@ const Dashboard = (props) => {
             <Col>
               <QuantumRegisters
                 setItemSize={setItemSize}
+                handlePrint={handlePrint}
                 setSelectedImg={setSelectedImg}
               />
             </Col>
@@ -400,17 +574,41 @@ const Dashboard = (props) => {
                       // <span className="text">{e.i}</span>
                       gridItemImgs[index] && (
                         <div>
-                          <img
-                            src={gridItemImgs[index].src}
-                            alt={gridItemImgs[index].alt}
-                            width={
-                              gridItemImgs[index].alt === "longPic"
-                                ? 1390
-                                : gridItemImgs[index].alt === "QAA"
-                                ? 520
-                                : (gridItemImgs[index].alt === "block")?90:120
-                            }
-                          ></img>
+                          {gridItemImgs[index].alt === "QAA" && loopFinishedSetup? (
+                            <BouncyDiv>
+                            <div style={{position:'absolute',right:-540,top:-40}}>
+                            <img src={Ntimes} alt='Ntimes' width={100}></img>
+                            </div>
+                              <img
+                                src={gridItemImgs[index].src}
+                                alt={gridItemImgs[index].alt}
+                                width={
+                                  gridItemImgs[index].alt === "longPic"
+                                    ? 1390
+                                    : gridItemImgs[index].alt === "QAA"
+                                    ? 520
+                                    : gridItemImgs[index].alt === "block"
+                                    ? 90
+                                    : 120
+                                }
+                              ></img>
+                 
+                            </BouncyDiv>
+                          ) : (
+                            <img
+                              src={gridItemImgs[index].src}
+                              alt={gridItemImgs[index].alt}
+                              width={
+                                gridItemImgs[index].alt === "longPic"
+                                  ? 1390
+                                  : gridItemImgs[index].alt === "QAA"
+                                  ? 520
+                                  : gridItemImgs[index].alt === "block"
+                                  ? 90
+                                  : 120
+                              }
+                            ></img>
+                          )}
                         </div>
                       )
                     )}
@@ -462,6 +660,28 @@ const Dashboard = (props) => {
           </Row>
         </Col>
       </Row>
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>QAA Set up</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          QAA is ready to be build, Do you want to build it now?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              handleModalClose();
+              handlePrint("Loop");
+            }}
+          >
+            Build
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
