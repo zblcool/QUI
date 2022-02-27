@@ -1,50 +1,64 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Navbar, Container, Card } from 'react-bootstrap'
 import classicalOpt from '../../images/Classical.png'
 import histPlaceholders from '../../images/placeholders/Histo.png'
 import { Column } from '@ant-design/plots';
 
 import axios from "axios";
-const QuantumStates = (props) => {
-  const [data, setData] = useState([
-    {
-      'bit':'000',
-      'probability':0.03
-    },
-    {
-      'bit':'001',
-      'probability':0.02
-    },
-    {
-      'bit':'010',
-      'probability':0.05
-    },
-    {
-      'bit':'011',
-      'probability':0.04
-    },
-    {
-      'bit':'100',
-      'probability':1.0
-    },
-    {
-      'bit':'101',
-      'probability':0.03
-    },
-    {
-      'bit':'110',
-      'probability':0.03
-    },
-    {
-      'bit':'111',
-      'probability':0.03
-    },
-  ]);
+const QuantumStates = forwardRef((props,ref) => {
+  const {showDiagram} = props
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetchPost();
   }, []);
 
+  useImperativeHandle(ref, () => ({
+
+    setNewData() {
+      setData([
+        {
+          'bit':'000',
+          'probability':0.03
+        },
+        {
+          'bit':'001',
+          'probability':0.02
+        },
+        {
+          'bit':'010',
+          'probability':0.05
+        },
+        {
+          'bit':'011',
+          'probability':0.04
+        },
+        {
+          'bit':'100',
+          'probability':1.0
+        },
+        {
+          'bit':'101',
+          'probability':0.03
+        },
+        {
+          'bit':'110',
+          'probability':0.03
+        },
+        {
+          'bit':'111',
+          'probability':0.03
+        },
+      ])
+    }
+
+  }));
+  // useEffect(()=>{
+  //   if(showDiagram){
+      
+  //   }
+    
+  // },[showDiagram])
 
   const fetchPost = async () => {
     const response = await axios("http://127.0.0.1:5000/");
@@ -95,6 +109,6 @@ const QuantumStates = (props) => {
   </Card>
     </div>
   )
-}
+})
 
 export default QuantumStates

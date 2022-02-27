@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Col, Modal, Offcanvas, Row } from "react-bootstrap";
+import React, { useRef, useState } from "react";
+import { Button, Col, Modal, Offcanvas, Row, Toast } from "react-bootstrap";
 import GridLayout from "react-grid-layout";
 import AccountStatusCard from "../component/LeftSide/AccountStatusCard";
 import ClassicalOptimizers from "../component/LeftSide/ClassicalOptimizers";
@@ -45,6 +45,7 @@ const Dashboard = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [showModal, setShowModal] = useState(false);
+  const childRef = useRef();
 
   const handleModalClose = () => setShowModal(false);
   const handleModalShow = () => setShowModal(true);
@@ -56,6 +57,9 @@ const Dashboard = (props) => {
   const [showAblockZ, setShowAblockZ] = useState(false);
   const [hasDropedBlockA, setHasDropedBlockA] = useState(false);
   const [loopFinishedSetup, setLoopFinishedSetup] = useState(false);
+  const [hasDropedAZ,setHasDropedAZ] = useState(false)
+  const [showDiagram,setShowDiagram] = useState(false)
+  const [showToast,setShowToast] = useState(false)
   // counter
   const [count, setCount] = useState(gridLayout.length);
 
@@ -233,6 +237,14 @@ const Dashboard = (props) => {
   };
   return (
     <div className=" d-flex flex-column flex-grow-1 mb-5">
+    <Toast onClose={() => setShowToast(false)} show={showToast} delay={4000} autohide style={{position:'absolute',left:'40%',top:'5%',zIndex:1000}}>
+          <Toast.Header>
+
+            <strong className="me-auto">Notifications</strong>
+            <small>2 seconds ago</small>
+          </Toast.Header>
+          <Toast.Body><h4>Compile successfully! Loading diagram....</h4></Toast.Body>
+        </Toast>
       <Offcanvas
         show={show}
         onHide={handleClose}
@@ -372,6 +384,15 @@ const Dashboard = (props) => {
             setItemSize("block");
             setSelectedImg({ src: e.target.src, alt: e.target.alt });
           }}
+          onDragEndCapture={(e)=>{
+            setTimeout(() => {
+              setShowToast(true)
+            }, 1000);
+          
+            setTimeout(() => {
+              childRef.current.setNewData()
+            }, 2000);
+          }}
           onDragEnd={(e) => {
             console.log("end", e.target.src);
           }}
@@ -411,23 +432,30 @@ const Dashboard = (props) => {
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
               handlePrint("aBlock");
-              setCount(count + 1);
+             
 
             }}
             onDragEndCapture={(e)=>{
-              setGridItemImgs([...gridItemImgs,{
-                src:AblockZ,
-                alt:"block"
-              }])
-              setGridLayout([...gridLayout,{
-                i:"itemId" + (count + 1).toString(),
-                x:gridLayout[gridLayout.length-1].x-4,
-                y:gridLayout[gridLayout.length-1].y,
-                w:2,
-                h:2,
-                isResizable:false,
-                isDraggable:true
-              }])
+              if (!hasDropedAZ){
+                setCount(count + 1);
+                setTimeout(() => {
+                  setGridItemImgs([...gridItemImgs,{
+                    src:AblockZ,
+                    alt:"block"
+                  }])
+                  setGridLayout([...gridLayout,{
+                    i:"itemId" + (count + 1).toString(),
+                    x:gridLayout[gridLayout.length-1].x-4,
+                    y:gridLayout[gridLayout.length-1].y,
+                    w:2,
+                    h:2,
+                    isResizable:false,
+                    isDraggable:true
+                  }])
+                }, 1000);
+              }
+             setHasDropedAZ(true)
+
             }}
             onDragEnd={(e) => {
               console.log("end", e.target.src);
@@ -667,7 +695,7 @@ const Dashboard = (props) => {
           </Row>
           <Row className="custom-purple-cards-container">
             <Col>
-              <QuantumStates />
+              <QuantumStates showDiagram={showDiagram} ref={childRef}/>
             </Col>
             <Col>
               <QuantumStatesDirac />
