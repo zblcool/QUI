@@ -29,7 +29,7 @@ const ClassicalOptimizers = (props) => {
             value={printedCode}
             options={{
               mode: "python",
-              theme: "material",
+              theme: "base16-light",
               lineNumbers: true,
               autofocus:true
               

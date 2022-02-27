@@ -411,6 +411,23 @@ const Dashboard = (props) => {
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
               handlePrint("aBlock");
+              setCount(count + 1);
+
+            }}
+            onDragEndCapture={(e)=>{
+              setGridItemImgs([...gridItemImgs,{
+                src:AblockZ,
+                alt:"block"
+              }])
+              setGridLayout([...gridLayout,{
+                i:"itemId" + (count + 1).toString(),
+                x:gridLayout[gridLayout.length-1].x-4,
+                y:gridLayout[gridLayout.length-1].y,
+                w:2,
+                h:2,
+                isResizable:false,
+                isDraggable:true
+              }])
             }}
             onDragEnd={(e) => {
               console.log("end", e.target.src);
@@ -431,9 +448,7 @@ const Dashboard = (props) => {
                 e.dataTransfer.setData("text/plain", "");
                 setItemSize("small");
                 setSelectedImg({ src: e.target.src, alt: e.target.alt });
-                setTimeout(() => {
-                  handleModalShow();
-                }, 2000);
+
               }}
               onDragEnd={(e) => {
                 console.log("end", e.target.src);
@@ -455,6 +470,9 @@ const Dashboard = (props) => {
               setItemSize("small");
               setSelectedImg({ src: e.target.src, alt: e.target.alt });
               handlePrint("oblock");
+              setTimeout(() => {
+                handleModalShow();
+              }, 3000);
             }}
             onDragEnd={(e) => {
               console.log("end", e.target.src);
@@ -537,7 +555,7 @@ const Dashboard = (props) => {
               }}
               onDropDragOver={(e) => {
                 if (itemSize === "register") {
-                  return { w: 24, h: 1 };
+                  return { w: 2, h: 1 };
                 } else {
                   if (itemSize === "small") {
                     return { w: 2, h: 1 };
@@ -550,14 +568,14 @@ const Dashboard = (props) => {
               {gridLayout.map((e, index) => {
                 const lockStyle = {
                   position: "absolute",
-                  right: "2px",
+                  left: "20px",
                   top: -25,
-                  right: 20,
+
                   cursor: "pointer",
                 };
                 const removeStyle = {
                   position: "absolute",
-                  right: "2px",
+                  left: "2px",
                   top: -25,
                   cursor: "pointer",
                 };
