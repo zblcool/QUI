@@ -11,6 +11,7 @@ import verticalImg from "../images/veriticaDivider.png";
 import verticalSidebar from "../images/verticalSidebar.png";
 import Hadmard from "../images/Hadmard.png";
 import QAA from "../images/QAA.png";
+import SidePic from '../images/sidePic.png'
 import QAABlank from "../images/QAABlank.png";
 import ParameterControl from "../images/ParameterControl.png";
 import QNN from "../images/QNN.png";
@@ -28,7 +29,7 @@ import ModulesInUseCard from "../component/RightSide/ModulesInUseCard";
 
 import _, { remove } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
+import { faList, faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 
 import styled, { keyframes } from "styled-components";
 import { flash } from "react-animations";
@@ -60,6 +61,7 @@ const Dashboard = (props) => {
   const [hasDropedAZ,setHasDropedAZ] = useState(false)
   const [showDiagram,setShowDiagram] = useState(false)
   const [showToast,setShowToast] = useState(false)
+  const [showSidePic1, setShowSidePic1] = useState(false)
   // counter
   const [count, setCount] = useState(gridLayout.length);
 
@@ -293,6 +295,7 @@ const Dashboard = (props) => {
             }}
             onDragEnd={(e) => {
               console.log("end", e.target.src);
+
             }}
           >
             <img src={QAABlank} width={100} alt="QAA"></img>
@@ -581,6 +584,9 @@ const Dashboard = (props) => {
                 onDrop(layout, layoutItem, _event);
                 updateItemImg();
               }}
+              onDrag={(layout, layoutItem, _event) => {
+                console.log("drag", layout, layoutItem, _event);
+              }}
               onDropDragOver={(e) => {
                 if (itemSize === "register") {
                   return { w: 2, h: 1 };
@@ -638,9 +644,10 @@ const Dashboard = (props) => {
                                     : 120
                                 }
                               ></img>
-                 
+                              
                             </BouncyDiv>
                           ) : (
+                            <div style={{perspective:'1500px'}}>
                             <img
                               src={gridItemImgs[index].src}
                               alt={gridItemImgs[index].alt}
@@ -653,7 +660,11 @@ const Dashboard = (props) => {
                                   ? 90
                                   : 120
                               }
+
                             ></img>
+                            {showSidePic1 && gridItemImgs[index].alt === "Hadmard" && (<div className="td-figure"> <img src={SidePic} alt="sidePic" width={250} ></img></div> )}
+                            
+                            </div>
                           )}
                         </div>
                       )
@@ -667,6 +678,23 @@ const Dashboard = (props) => {
                     >
                       x
                     </span>
+       
+                    {gridItemImgs[index].alt === "Hadmard" && (
+                     
+                      <span
+                      className="lock"
+                      style={lockStyle}
+                      onClick={() => {
+                        setShowSidePic1(!showSidePic1); 
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={
+                          faList
+                        }
+                      />
+                    </span>
+                    )}
                     {gridItemImgs[index].alt === "longPic" ? (
                       <span
                         className="lock"

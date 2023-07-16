@@ -256,3 +256,46 @@ body {
 
 // NOTE Library addons
 
+@keyframes entryAnimation {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) rotateX(0deg) rotateY(-50deg) rotateZ(0deg) ;
+    }
+  }
+.td-figure {
+    transform: translateY(0) rotateX(0deg) rotateY(-50deg) rotateZ(0deg);
+    
+    opacity: 1;
+    display: inline-block;
+    left: 100px;
+    top: -150px;
+    position: relative;
+    z-index: 10000;
+    pointer-events: auto!important;
+    -webkit-user-select: auto!important;
+    -ms-user-select: auto!important;
+    transition: all 0.5s ease;
+
+    &:hover {
+        
+        transform: translateX(0) rotate(0) ;
+        transition: all 0.5s ease;
+        img{
+
+            box-shadow: 30px 30px 30px 12px rgba(0, 0, 0, 0.35);
+        }
+    }
+    img{
+        border-radius: 0.375em;
+        transition: all 0.5s ease;
+    box-shadow: 16px 10px 30px 12px rgba(0, 0, 0, 0.25);
+        opacity: 1;
+        animation: entryAnimation 0.5s ease forwards;
+    }
+
+      
+  }
