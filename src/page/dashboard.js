@@ -12,7 +12,13 @@ import verticalSidebar from "../images/verticalSidebar.png";
 import Hadmard from "../images/Hadmard.png";
 import QAA from "../images/QAA.png";
 import SidePic from '../images/sidePic.png'
+import SidePic2 from '../images/sidePic2.png'
 import QAABlank from "../images/QAABlank.png";
+import newApp1 from "../images/newApp1.png";
+import newApp2 from "../images/newApp2.png";
+import newApp3 from "../images/newApp3.png";
+import newApp4 from "../images/newApp4.png"
+import premix from "../images/premix.png";
 import ParameterControl from "../images/ParameterControl.png";
 import QNN from "../images/QNN.png";
 import Ablock from "../images/Ablock.png";
@@ -35,6 +41,75 @@ import styled, { keyframes } from "styled-components";
 import { flash } from "react-animations";
 
 const bounceAnimation = keyframes`${flash}`;
+const preBuildLayout= [
+  {
+    "i": "itemId0",
+    "x": 0,
+    "y": 15,
+    "w": 2,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
+  {
+    "i": "itemId2",
+    "x": 0,
+    "y": 12,
+    "w": 2,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
+  {
+    "i": "itemId4",
+    "x": 0,
+    "y": 9,
+    "w": 2,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
+  {
+    "i": "itemId6",
+    "x": 0,
+    "y": 6,
+    "w": 2,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
+  {
+    "i": "itemId8",
+    "x": 6,
+    "y": 0,
+    "w": 1,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  }
+]
+const preBuildItemImgs = [
+  {
+    "src": "/static/media/MainRegister.95911f6530e3956031fe.png",
+    "alt": "longPic"
+  },
+  {
+    "src": "/static/media/longPic.0a0f8a3cdac7092e51bf.png",
+    "alt": "longPic"
+  },
+  {
+    "src": "/static/media/MainRegister.95911f6530e3956031fe.png",
+    "alt": "longPic"
+  },
+  {
+    "src": "/static/media/longPic.0a0f8a3cdac7092e51bf.png",
+    "alt": "longPic"
+  },
+  {
+    "src": "http://localhost:3000/static/media/premix.fdddfe93dd8067587062.png",
+    "alt": "QAA"
+  }
+]
 
 const BouncyDiv = styled.div`
   animation: 1s ${bounceAnimation};
@@ -62,6 +137,7 @@ const Dashboard = (props) => {
   const [showDiagram,setShowDiagram] = useState(false)
   const [showToast,setShowToast] = useState(false)
   const [showSidePic1, setShowSidePic1] = useState(false)
+  const [showSidePic2, setShowSidePic2] = useState(false)
   // counter
   const [count, setCount] = useState(gridLayout.length);
 
@@ -281,25 +357,127 @@ const Dashboard = (props) => {
             <img src={Hadmard} width={100} alt="Hadmard"></img>
           </div>
           <div
-            className="droppable-element"
-            draggable={true}
-            unselectable="on"
-            // this is a hack for firefox
-            // Firefox requires some kind of initialization
-            // which we can do by adding this attribute
-            // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
-            onDragStart={(e) => {
-              e.dataTransfer.setData("text/plain", "");
-              setItemSize("Block");
-              setSelectedImg({ src: e.target.src, alt: e.target.alt });
-            }}
-            onDragEnd={(e) => {
-              console.log("end", e.target.src);
+          className="droppable-element"
+          draggable={true}
+          unselectable="on"
+          // this is a hack for firefox
+          // Firefox requires some kind of initialization
+          // which we can do by adding this attribute
+          // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+          onDragStart={(e) => {
+            e.dataTransfer.setData("text/plain", "");
+            setItemSize("Block");
+            setSelectedImg({ src: e.target.src, alt: e.target.alt });
+          }}
+          onDragEnd={(e) => {
+            console.log("end", e.target.src);
+  
+          }}
+        >
+          <img src={newApp4} width={30} alt="newApp4"></img>
+        </div>
+          
+          <div
+          className="droppable-element"
+          draggable={true}
+          unselectable="on"
+          // this is a hack for firefox
+          // Firefox requires some kind of initialization
+          // which we can do by adding this attribute
+          // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+          onDragStart={(e) => {
+            e.dataTransfer.setData("text/plain", "");
+            setItemSize("Block");
+            setSelectedImg({ src: e.target.src, alt: e.target.alt });
+          }}
+          onDragEnd={(e) => {
+            console.log("end", e.target.src);
 
-            }}
-          >
-            <img src={QAABlank} width={100} alt="QAA"></img>
-          </div>
+          }}
+        >
+          <img src={newApp1} width={100} alt="newApp1"></img>
+        </div>
+        <div
+        className="droppable-element"
+        draggable={true}
+        unselectable="on"
+        // this is a hack for firefox
+        // Firefox requires some kind of initialization
+        // which we can do by adding this attribute
+        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+        onDragStart={(e) => {
+          e.dataTransfer.setData("text/plain", "");
+          setItemSize("Block");
+          setSelectedImg({ src: e.target.src, alt: e.target.alt });
+        }}
+        onDragEnd={(e) => {
+          console.log("end", e.target.src);
+
+        }}
+      >
+        <img src={newApp3} width={30} alt="newApp3"></img>
+      </div>
+     
+        <div
+        className="droppable-element"
+        draggable={true}
+        unselectable="on"
+        // this is a hack for firefox
+        // Firefox requires some kind of initialization
+        // which we can do by adding this attribute
+        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+        onDragStart={(e) => {
+          e.dataTransfer.setData("text/plain", "");
+          setItemSize("Block");
+          setSelectedImg({ src: e.target.src, alt: e.target.alt });
+        }}
+        onDragEnd={(e) => {
+          console.log("end", e.target.src);
+
+        }}
+      >
+        <img src={newApp2} width={100} alt="newApp2"></img>
+      </div>
+      <div
+        className="droppable-element"
+        draggable={true}
+        unselectable="on"
+        // this is a hack for firefox
+        // Firefox requires some kind of initialization
+        // which we can do by adding this attribute
+        // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+        onDragStart={(e) => {
+          e.dataTransfer.setData("text/plain", "");
+          setItemSize("Block");
+          setSelectedImg({ src: e.target.src, alt: e.target.alt });
+        }}
+        onDragEnd={(e) => {
+          console.log("end", e.target.src);
+
+        }}
+      >
+        <img src={premix} width={100} alt="QAA"></img>
+      </div>
+      <div
+      className="droppable-element"
+      draggable={true}
+      unselectable="on"
+      // this is a hack for firefox
+      // Firefox requires some kind of initialization
+      // which we can do by adding this attribute
+      // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+      onDragStart={(e) => {
+        e.dataTransfer.setData("text/plain", "");
+        setItemSize("Block");
+        setSelectedImg({ src: e.target.src, alt: e.target.alt });
+      }}
+      onDragEnd={(e) => {
+        console.log("end", e.target.src);
+
+      }}
+    >
+      <img src={QAABlank} width={100} alt="QAA"></img>
+    </div>
           <div
             className="droppable-element"
             draggable={true}
@@ -544,7 +722,15 @@ const Dashboard = (props) => {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col onClick={()=>{
+              setGridLayout(preBuildLayout)
+              setItemSize("Block")
+              setGridItemImgs(preBuildItemImgs)
+              setCount(5)
+              setSelectedImg({
+                "src": "http://localhost:3000/static/media/premix.fdddfe93dd8067587062.png",
+                "alt": "QAA"
+              })}}>
               <MyProjects />
             </Col>
             <Col>
@@ -654,7 +840,7 @@ const Dashboard = (props) => {
                               width={
                                 gridItemImgs[index].alt === "longPic"
                                   ? 1390
-                                  : gridItemImgs[index].alt === "QAA"
+                                  : gridItemImgs[index].alt === "QAA" | gridItemImgs[index].alt === "newApp1" | gridItemImgs[index].alt === "newApp2"
                                   ? 520
                                   : gridItemImgs[index].alt === "block"
                                   ? 90
@@ -662,7 +848,12 @@ const Dashboard = (props) => {
                               }
 
                             ></img>
-                            {showSidePic1 && gridItemImgs[index].alt === "Hadmard" && (<div className="td-figure"> <img src={SidePic} alt="sidePic" width={250} ></img></div> )}
+                            {showSidePic1 && gridItemImgs[index].alt === "newApp1" && (<div className="td-figure" onClick={()=>{
+                              alert('hey clicking')
+                            }}> <img src={SidePic} alt="sidePic" width={400} ></img></div> )}
+                            {showSidePic2 && gridItemImgs[index].alt === "newApp2" && (<div className="td-figure" onClick={()=>{
+                              alert('hey clicking')
+                            }}> <img src={SidePic2} alt="sidePic" width={400} ></img></div> )}
                             
                             </div>
                           )}
@@ -679,7 +870,23 @@ const Dashboard = (props) => {
                       x
                     </span>
        
-                    {gridItemImgs[index].alt === "Hadmard" && (
+                    {gridItemImgs[index].alt === "newApp2"  && (
+                     
+                      <span
+                      className="lock"
+                      style={lockStyle}
+                      onClick={() => {
+                        setShowSidePic2(!showSidePic2); 
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={
+                          faList
+                        }
+                      />
+                    </span>
+                    )}
+                    {gridItemImgs[index].alt === "newApp1"  && (
                      
                       <span
                       className="lock"
@@ -695,6 +902,7 @@ const Dashboard = (props) => {
                       />
                     </span>
                     )}
+                    
                     {gridItemImgs[index].alt === "longPic" ? (
                       <span
                         className="lock"
