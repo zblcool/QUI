@@ -86,7 +86,35 @@ const preBuildLayout= [
     "h": 2,
     "isResizable": false,
     "isDraggable": true
-  }
+  },
+  {
+    "i": "itemId10",
+    "x": 9,
+    "y": 0,
+    "w": 1,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
+
+  {
+    "i": "itemId12",
+    "x": 20,
+    "y": 5,
+    "w": 1,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
+  {
+    "i": "itemId14",
+    "x": 11,
+    "y": 5,
+    "w": 1,
+    "h": 2,
+    "isResizable": false,
+    "isDraggable": true
+  },
 ]
 const preBuildItemImgs = [
   {
@@ -106,9 +134,22 @@ const preBuildItemImgs = [
     "alt": "longPic"
   },
   {
-    "src": "http://localhost:3000/static/media/premix.fdddfe93dd8067587062.png",
+    "src": "/static/media/premix.fdddfe93dd8067587062.png",
     "alt": "QAA"
-  }
+  },
+  {
+    "src": "/static/media/newApp3.edf3ca761f68c998a068.png",
+    "alt": "newApp3"
+  },
+
+  {
+    "src": "/static/media/newApp4.f69ae4ea6d766bc61e62.png",
+    "alt": "newApp4"
+  },
+  {
+    "src": "/static/media/newApp2.acdbdf1f188dfabd7786.png",
+    "alt": "newApp2"
+  },
 ]
 
 const BouncyDiv = styled.div`
@@ -726,10 +767,10 @@ const Dashboard = (props) => {
               setGridLayout(preBuildLayout)
               setItemSize("Block")
               setGridItemImgs(preBuildItemImgs)
-              setCount(5)
+              setCount(8)
               setSelectedImg({
-                "src": "http://localhost:3000/static/media/premix.fdddfe93dd8067587062.png",
-                "alt": "QAA"
+                "src": "/static/media/newApp4.f69ae4ea6d766bc61e62.png",
+                "alt": "newApp4"
               })}}>
               <MyProjects />
             </Col>
@@ -833,8 +874,9 @@ const Dashboard = (props) => {
                               
                             </BouncyDiv>
                           ) : (
-                            <div style={{perspective:'1500px'}}>
+                            <div style={{perspective:'1500px'}}  className={gridItemImgs[index].alt === 'newApp4'?"dragging-items-newApp4" :"dragging-items-images"}>
                             <img
+                             
                               src={gridItemImgs[index].src}
                               alt={gridItemImgs[index].alt}
                               width={

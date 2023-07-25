@@ -298,6 +298,22 @@ body {
         opacity: 1;
         animation: entryAnimation 0.5s ease forwards;
     }
-
-      
+    
+  
+    
   }
+
+.dragging-items-images{
+    transform: scale(1);
+}
+.dragging-items-images:hover{
+    transform: scale(1.02, 1.02);
+    transition: transform 1s ease-in-out;
+}
+.dragging-items-newApp4{
+    transform: scale(1);
+}
+.dragging-items-newApp4:hover{
+    transform: scale(1.3, 1.3) translateX(20px) rotateY(40deg);
+    transition: transform 0.5s ease-in-out;
+}

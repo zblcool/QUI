@@ -23,7 +23,7 @@ const Header = (props) => {
             Quantum OS
           </Navbar.Brand>
           <div className="header-status">
-            <img src={Projects} height={30} alt="Projects" onClick={()=>{alert('project')}}></img>
+            <img src={Projects} height={30} alt="Projects" title="New project" onClick={()=>{window.location.reload()}}></img>
             <img src={icon5} height={30} alt="icon5" onClick={()=>{alert('icon5')}}></img>
             <img src={icon3} alt="icon3" height={30} onClick={()=>{alert('icon3')}}></img>
             <img src={icon2} alt="icon2" height={30} onClick={()=>{alert('icon2')}}></img>
